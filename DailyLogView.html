@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Supervisor HomePage</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/DLR.css">
+
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+<body>	
+	
+	<div class="container px-4 py-4">
+		<div class="row-inline">
+			<div class="mt-3">
+				<label for="Date">Date:</label>
+				<input type="date" id="today"></input>
+			</div>
+			<div class="form-group mt-4">
+				<label for="Role">Role</label>
+				<select id="Role" onchange="roleCheck(this)">
+					<option value="Developer">Developer</option>
+					<option value="QA">QA</option>
+				</select>
+
+			</div>
+
+			<div id="DeveloperTable" class="mt-4" style="display: block;">
+			
+				<input type="text" id="myInputDP" onkeyup="myFunctionDP()" placeholder="Search by project" title="Type in a name">
+				<table border="2" id="myTableD">
+					<thead>
+						<tr class="header">
+							<th>Project</th>
+							<th>Task Assigned</th>
+							<th>Work Completed</th>
+							<th>Work In Progress</th>
+							<th>Hours Spent</th>
+							<th>Issues</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>ABC</td>
+							<td>UI Form 1</td>
+							<td>Yes</td>
+							<td>Completed</td>
+							<td>3</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>XYZ</td>
+							<td>UI Form 2</td>
+							<td>No</td>
+							<td>Personal Info Section</td>
+							<td>3</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>ABC</td>
+							<td>UI Form 2</td>
+							<td>Yes</td>
+							<td>Completed</td>
+							<td>4</td>
+							<td>-</td>
+						</tr>
+
+					</tbody>
+
+
+
+				</table>
+			</div>
+			<div id="QATable" class="mt-4" style="display: none;">
+				<input type="text" id="myInputQP" onkeyup="myFunctionQP()" placeholder="Search By Project.." title="Type in a name">
+				<input type="text" id="myInputQ" onkeyup="myFunctionQB()" placeholder="Bug Filter" title="Type in a name">
+
+				<table id="myTableQ" border="2">
+					<thead>
+						<tr class="header">
+							<th>Ticket No.</th>
+							<th>Project</th>
+							<th>Issues Identified</th>
+							<th>Suggestion Provided</th>
+							<th>Status</th>
+							<th>Hours Spent</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>ABC</td>
+							<td>Project is Type able</td>
+							<td>Make it Dropdown</td>
+							<td>Open</td>
+							<td>3</td>
+							<td>Project is assigned by Supervisor</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>ABC</td>
+							<td>No</td>
+							<td>No</td>
+							<td>Closed</td>
+							<td>3</td>
+							<td></td>
+						</tr>
+						
+
+					</tbody>
+
+
+
+				</table>
+			</div>
+
+		</div>	
+
+
+
+
+
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			let today = new Date().toISOString().substr(0, 10);
+			document.querySelector("#today").value = today;
+
+			function roleCheck(that){
+				if(that.value=="Developer"){
+					document.getElementById("DeveloperTable").style.display="block";
+					document.getElementById("QATable").style.display="none";
+				}
+				if(that.value=="QA"){
+					document.getElementById("DeveloperTable").style.display="none";
+					document.getElementById("QATable").style.display="block";	
+				}
+			}
+			
+
+				function myFunctionDP() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputDP");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableD");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+			function myFunctionQB() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputQ");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableQ");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[2];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+			function myFunctionQP() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputQP");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableQ");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[1];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+
+		</script>
+	</body>
+	</html>

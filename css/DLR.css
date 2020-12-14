@@ -1,0 +1,37 @@
+#myInputD,#myInputDP,#myInputQ,#myInputQP {
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 20%;
+	font-size: 16px;
+	padding: 6px 10px 6px 20px;
+	border: 1px solid #A9A9A9;
+	margin-bottom: 12px;
+}
+ 
+
+#myTableD,#myTableQ {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #A9A9A9;
+	font-size: 18px;
+}
+
+#myTableD th, #myTableD td ,#myTableQ th, #myTableQ td {
+	text-align: left;
+	padding: 12px;
+}
+
+#myTableD tr , #myTableQ tr{
+	border-bottom: 1px solid #A9A9A9;
+}
+
+#myTableD tr.header,#myTableQ tr.header {
+	background-color: #DCDCDC;
+}
+
+ #myTableD tr:hover , #myTableQ tr:hover{
+ 		background-color: #F5F5F5;
+ }
+
+
+

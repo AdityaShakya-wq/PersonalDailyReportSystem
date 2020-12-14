@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Form</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="css/EmpForm.css">
+			
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid bg">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-12"></div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+
+			<form class="form-inline form-container">
+				
+				<div class="px-4 mx-4">
+					<h2>Report Today's Work</h2>
+					
+				<div class="form-group mt-3">
+					<label for="Date">Date:</label>
+					<input type="date" id="today2" class="form-control" style="margin-left:20vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="SerialNumber">S. N:</label>
+					<input type="number" id="SerialNumber" class="form-control " min="0" style="margin-left:21vh;"></input>
+					
+				</div>
+				<div class="form-group">
+					<label for="AssignmentDetails">Details:</label>
+					<input type="text" id="AssignmentDetails" class="form-control" autocomplete="off" style="margin-left:18vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="ProjectName">Project:</label>
+					<input type="text" id="ProjectName" class="form-control" style="margin-left:18vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="HoursSpent">HoursSpent:</label>
+					<input type="number" id="HoursSpent	" class="form-control" min="0"
+					style="margin-left:13vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="WorksAccomplished">WorksAccomplished:</label>
+					<input type="text" id="WorksAccomplished" class="form-control" autocomplete="off" style="margin-left:4vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="WorksRemaining">Works In-Progress:</label>
+					<input type="text" id="WorksRemaining" class="form-control" autocomplete="off" style="margin-left:6vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="Remarks">Remarks:</label>
+					<input type="text" id="Remarks" class="form-control" autocomplete="off" style="margin-left:16vh;"></input>
+				</div>
+				<div class="form-group">
+					<label for="Issues">Issues to be addressed:</label>
+					<input type="text" id="Issues" class="form-control" autocomplete="off" style="margin-left:2vh;"></input>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+				</div>
+
+			</form>
+
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12"></div>
+
+		<!-- 	<div class="col-md-5">
+					<img src="images/3.png" class="img">
+				</div>
+
+		 -->
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  	<script>
+		$(document).ready(function(){
+  		$('[data-toggle="popover"]').popover();   
+		});
+
+		let today = new Date().toISOString().substr(0, 10);
+		document.querySelector("#today").value = today;
+		document.querySelector("#today2").valueAsDate = new Date();
+
+		
+		</script>
+
+
+
+</body>
+</html>

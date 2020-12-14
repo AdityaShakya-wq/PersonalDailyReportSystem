@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Supervisor HomePage</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/DLR.css">
+
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+<body>	
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<a class="navbar-brand" href="SupervisorHomePage.html">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-labelled="Toggle Navigation"><span class="navbar-toggler-icon"></span></button>
+				<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a href="#" class="nav-link">About <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item active">
+							<a href="ProjectDetail.html" class="nav-link">ProjectDetail<span class="sr-only">(current)</span></a>
+						</li>
+					</ul>
+					<ul class="navbar-nav">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Account Details</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Logout</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<div class="row-inline">
+			<div class="col-12 mt-3">
+				<label for="Date">Date:</label>
+				<input type="date" id="today"></input>
+			</div>
+		</div>
+		<div class="row-inline">
+			<div class="col-12 form-group mt-4">
+				<label for="Role">Role</label>
+				<select id="Role" onchange="roleCheck(this)">
+					<option value="Developer">Developer</option>
+					<option value="QA">QA</option>
+				</select>
+
+			</div>
+		</div>
+		<div class="row-inline">
+			<div id="DeveloperTable" class="col-12 mt-4" style="display: block;">
+				<input type="text" id="myInputD" onkeyup="myFunctionDU()" placeholder="Search for names.." title="Type in a name" class="float-right">
+				<input type="text" id="myInputDP" onkeyup="myFunctionDP()" placeholder="Search by project" title="Type in a name" class="float-right mr-1">
+				<table border="2" id="myTableD">
+					<thead>
+						<tr class="header">
+							<th>Project</th>
+							<th>Task Assigned</th>
+							<th>Assigned To</th>
+							<th>Work Completed</th>
+							<th>Work In Progress</th>
+							<th>Hours Spent</th>
+							<th>Issues</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>ABC</td>
+							<td>UI Form 1</td>
+							<td>Aditya</td>
+							<td>Yes</td>
+							<td>Completed</td>
+							<td>3</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>XYZ</td>
+							<td>UI Form 2</td>
+							<td>Aditya</td>
+							<td>No</td>
+							<td>Personal Info Section</td>
+							<td>3</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>ABC</td>
+							<td>UI Form 2</td>
+							<td>Shashwot</td>
+							<td>Yes</td>
+							<td>Completed</td>
+							<td>4</td>
+							<td>-</td>
+						</tr>
+
+					</tbody>
+
+
+
+				</table>
+			</div>
+		</div>
+		<div class="row-inline">
+			<div id="QATable" class="col-12 mt-4" style="display: none;">
+				<input type="text" id="myInputQ" onkeyup="myFunctionQU()" placeholder="Search for names.." title="Type in a name" class="float-right">
+				<input type="text" id="myInputQP" onkeyup="myFunctionQP()" placeholder="Search By Project.." title="Type in a name" class="float-right mr-1">
+				<table id="myTableQ" border="2">
+					<thead>
+						<tr class="header">
+							<th>Ticket No.</th>
+							<th>Project</th>
+							<th>Assigned To</th>
+							<th>Issues Identified</th>
+							<th>Suggestion Provided</th>
+							<th>Status</th>
+							<th>Hours Spent</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>ABC</td>
+							<td>Aditya</td>
+							<td>Project is Type able</td>
+							<td>Make it Dropdown</td>
+							<td>Open</td>
+							<td>3</td>
+							<td>Project is assigned by Supervisor</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>ABC</td>
+							<td>Shashwot</td>
+							<td>No</td>
+							<td>No</td>
+							<td>Closed</td>
+							<td>3</td>
+							<td></td>
+						</tr>
+						
+
+					</tbody>
+
+
+
+				</table>
+			</div>
+		</div>
+
+		</div>	
+
+
+
+
+
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			let today = new Date().toISOString().substr(0, 10);
+			document.querySelector("#today").value = today;
+
+			function roleCheck(that){
+				if(that.value=="Developer"){
+					document.getElementById("DeveloperTable").style.display="block";
+					document.getElementById("QATable").style.display="none";
+				}
+				if(that.value=="QA"){
+					document.getElementById("DeveloperTable").style.display="none";
+					document.getElementById("QATable").style.display="block";	
+				}
+			}
+
+			function myFunctionDU() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputD");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableD");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[2];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+			function myFunctionDP() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputDP");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableD");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+			function myFunctionQU() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputQ");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableQ");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[2];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+			function myFunctionQP() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("myInputQP");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTableQ");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[1];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+
+		</script>
+	</body>
+	</html>
