@@ -14,6 +14,7 @@ public class EmpLogindao {
 			ResultSet rs=st.executeQuery("Select * from employee where Name=\""+EName+"\" AND Password=\""+EPass+"\""); 
 			if(rs.next()) {
 				e.setAcc(1);
+				e.setEname(rs.getString("Name"));
 			}
 				
 			

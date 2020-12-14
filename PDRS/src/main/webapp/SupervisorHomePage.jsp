@@ -37,7 +37,7 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
 							<%
-								SupLogin s=(SupLogin)request.getAttribute("alien");
+								SupLogin s=(SupLogin)request.getAttribute("Username");
 								out.println(s.getName());
 							%>
 						

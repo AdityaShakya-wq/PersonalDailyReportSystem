@@ -25,6 +25,8 @@ public class getController extends HttpServlet {
 		EmpLogindao dao=new EmpLogindao();
 		EmpLogin e=dao.getAccess(EName, EPass);
 		
+		request.setAttribute("Username", e);
+		
 		if(e.getAcc()==1) {
 			RequestDispatcher rd=request.getRequestDispatcher("EmployeeHomePage.jsp");
 			rd.forward(request, response);

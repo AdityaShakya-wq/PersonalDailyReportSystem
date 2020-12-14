@@ -23,7 +23,7 @@ public class getSController extends HttpServlet {
 		SupLogindao dao=new SupLogindao();
 		SupLogin s=dao.getAccess(SName, SPass);
 		
-		request.setAttribute("alien", s);
+		request.setAttribute("Username", s);
 		
 		if(s.getAcc()==1) {
 			RequestDispatcher rd=request.getRequestDispatcher("SupervisorHomePage.jsp");
