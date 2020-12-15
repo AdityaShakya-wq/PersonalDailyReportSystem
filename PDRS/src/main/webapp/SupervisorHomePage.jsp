@@ -5,7 +5,8 @@
 <html>
 <head>
 <title>Supervisor HomePage</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/dycalendar.min.css">
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
-				<a class="navbar-brand" href="SupervisorHomePage.html">Home</a>
+				<a class="navbar-brand" href="SupervisorHomePage.jsp">Home</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -36,12 +37,8 @@
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							<%
-								SupLogin s=(SupLogin)request.getAttribute("Username");
-								out.println(s.getName());
-							%>
-						
-							</a>
+
+						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="#">Account Details</a>
 								<div class="dropdown-divider"></div>
@@ -52,7 +49,7 @@
 			</div>
 		</nav>
 	</header>
-		
+
 
 	<div class="container-fluid">
 		<div class="row">
@@ -121,29 +118,31 @@
 				</div>
 				<div class="modal-body">
 
-					<form>
+					<form method="POST" action="GetProjectControl" id="projectadd">
 						<div class="form-group">
 							<label for="PName">Enter Project Name</label> <input type="text"
 								class="form-control" id="PName" aria-describedby="PNHelp"
-								placeholder="Enter name of the project." name="PName">
+								placeholder="Enter name of the project." name="PNAME" >
+
+
+
+
+
+
+
+
 						</div>
-
-
-
-
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" name="input" id="BTN" value="Add Project"
+								class="btn btn-success" onclick="AddRow()">Add Project</button>
+						</div>
 					</form>
-
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<input data-dismiss="modal" type="button" name="input" id="BTN"
-						value="Add Project" class="btn btn-success" onclick="AddRow()"></input>
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 
 
 
@@ -154,43 +153,26 @@
 
 
 
-	<script type="text/javascript" src="js/dycalendar.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/dycalendar.min.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript">
-		var list1 = [];
-		var list2 = [];
+		<script type="text/javascript">
+		
+		
+			
 
-		var n = 1;
-		var x = 0;
-
-		function AddRow() {
-			var AddRowp = document.getElementById('show');
-			var NewRow = AddRowp.insertRow(n);
-
-			list1[x] = document.getElementById("PName").value;
-			list1[x] = document.getElementById("PName").value;
-
-			var cel1 = NewRow.insertCell(0);
-			var cel2 = NewRow.insertCell(1);
-
-			cel1.innerHTML = list1[x];
-			cel2.innerHTML = list2[x];
-
-			n++;
-			x++;
-
-		}
-
-		dycalendar.draw({
-			target : "#Calendar",
-			type : "month",
-			highlighttoday : true,
-			prevnextbutton : "show"
-		});
-	</script>
+			dycalendar.draw({
+				target : "#Calendar",
+				type : "month",
+				highlighttoday : true,
+				prevnextbutton : "show"
+			});
+		</script>
 </body>
 
 
