@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.internproject.web.EmpLogin;
 import com.internproject.web.dao.EmpLogindao;
@@ -28,6 +29,9 @@ public class getController extends HttpServlet {
 		request.setAttribute("Username", e);
 		
 		if(e.getAcc()==1) {
+			HttpSession session=request.getSession();
+			session.setAttribute("username", EName);
+			session.setAttribute("EoS","E");
 			RequestDispatcher rd=request.getRequestDispatcher("EmployeeHomePage.jsp");
 			rd.forward(request, response);
 		}

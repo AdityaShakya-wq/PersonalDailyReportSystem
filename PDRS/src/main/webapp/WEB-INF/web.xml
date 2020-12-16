@@ -19,6 +19,13 @@
 		<servlet-name>GetProjectController</servlet-name>
 		<servlet-class>com.internproject.GetProjectController</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Logout</display-name>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.internproject.Logout</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>getController</servlet-name>
 		<url-pattern>/getControl</url-pattern>
@@ -30,5 +37,9 @@
 	<servlet-mapping>
 		<servlet-name>GetProjectController</servlet-name>
 		<url-pattern>/GetProjectControl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
 </web-app>

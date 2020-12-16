@@ -5,15 +5,22 @@
 <html>
 <head>
 <title>Employee HomePage</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<%
+		if (session.getAttribute("username") == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("EmployeeLogin.jsp");
+		rd.forward(request, response);
+	}
+	%>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
-				<a class="navbar-brand" href="SupervisorHomePage.html">Home</a>
+				<a class="navbar-brand" href="EmployeeHomePage.jsp">Home</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -29,21 +36,21 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"><%
-								EmpLogin e=(EmpLogin)request.getAttribute("Username");
-								out.println(e.getEname());
-							%></a>
+							aria-expanded="false">${username}</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="#">Account Details</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="EmployeeLogin.jsp">Logout</a>
+								<form action="Logout">
+									<button type="submit" class="dropdown-item">Logout</button>
+								</form>
+								
 							</div></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</header>
-	
+
 
 	<div class="container-fluid">
 		<div class="row">

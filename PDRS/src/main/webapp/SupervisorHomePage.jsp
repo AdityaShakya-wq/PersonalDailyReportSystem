@@ -12,6 +12,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<%
+		if (session.getAttribute("username") == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("SupervisorLogin.jsp");
+		rd.forward(request, response);
+	}
+	%>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
@@ -36,13 +42,13 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-
-						</a>
+							aria-expanded="false">${username} </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Account Details</a>
+								<a class="dropdown-item" href="getSControl">Account Details</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="SupervisorLogin.jsp">Logout</a>
+								<form action="Logout">
+								<button type="submit" class="dropdown-item">Logout</button>
+								</form>
 							</div></li>
 					</ul>
 				</div>
@@ -122,7 +128,7 @@
 						<div class="form-group">
 							<label for="PName">Enter Project Name</label> <input type="text"
 								class="form-control" id="PName" aria-describedby="PNHelp"
-								placeholder="Enter name of the project." name="PNAME" >
+								placeholder="Enter name of the project." name="PNAME">
 
 
 
@@ -142,7 +148,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 
 
 
@@ -153,26 +159,22 @@
 
 
 
-		<script type="text/javascript" src="js/dycalendar.min.js"></script>
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/dycalendar.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-		<script type="text/javascript">
-		
-		
-			
-
-			dycalendar.draw({
-				target : "#Calendar",
-				type : "month",
-				highlighttoday : true,
-				prevnextbutton : "show"
-			});
-		</script>
+	<script type="text/javascript">
+		dycalendar.draw({
+			target : "#Calendar",
+			type : "month",
+			highlighttoday : true,
+			prevnextbutton : "show"
+		});
+	</script>
 </body>
 
 

@@ -22,6 +22,7 @@
 
 </head>
 <body>
+	
 
 	<div class="container">
 		<div class="row content">
@@ -30,11 +31,11 @@
 			</div>
 			<div class="col-md-6 mb-3">
 				<h3 class="signin-text mb-5">Sign In</h3>
-				<form class="needs-validation" action="getControl" method="GET" novalidate>
+				<form class="needs-validation" action="getControl" method="GET"
+					novalidate>
 					<div class="form-group">
 
-						<label for="exampleUsername">Username</label> 
-						<input type="text"
+						<label for="exampleUsername">Username</label> <input type="text"
 							class="form-control" id="exampleUsername"
 							aria-describedby="UsernameHelp" placeholder="Enter Username"
 							required="required" autocomplete="off" name="EmployeeName"></input>

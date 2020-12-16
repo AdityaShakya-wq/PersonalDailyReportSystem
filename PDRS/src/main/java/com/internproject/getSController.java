@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.internproject.web.SupLogin;
 import com.internproject.web.dao.SupLogindao;
@@ -23,9 +24,13 @@ public class getSController extends HttpServlet {
 		SupLogindao dao=new SupLogindao();
 		SupLogin s=dao.getAccess(SName, SPass);
 		
-		request.setAttribute("Username", s);
 		
 		if(s.getAcc()==1) {
+			
+			HttpSession session=request.getSession();
+			session.setAttribute("username", SName);
+			session.setAttribute("EoS", "S");
+			
 			RequestDispatcher rd=request.getRequestDispatcher("SupervisorHomePage.jsp");
 			rd.forward(request, response);
 		}
