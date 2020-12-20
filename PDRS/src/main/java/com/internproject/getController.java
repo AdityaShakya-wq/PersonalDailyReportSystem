@@ -16,7 +16,7 @@ import com.internproject.web.dao.EmpLogindao;
  * Servlet implementation class getController
  */
 public class getController extends HttpServlet {
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String EName=request.getParameter("EmployeeName");

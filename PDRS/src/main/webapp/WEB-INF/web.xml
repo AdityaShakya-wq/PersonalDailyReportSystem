@@ -26,6 +26,13 @@
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>com.internproject.Logout</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>assignATask</display-name>
+		<servlet-name>assignATask</servlet-name>
+		<servlet-class>com.internproject.assignATask</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>getController</servlet-name>
 		<url-pattern>/getControl</url-pattern>
@@ -41,5 +48,9 @@
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>assignATask</servlet-name>
+		<url-pattern>/assignATask</url-pattern>
 	</servlet-mapping>
 </web-app>
