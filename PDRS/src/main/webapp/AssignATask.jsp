@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +10,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 </head>
@@ -74,18 +73,32 @@
 				</div>
 				<div class="modal-body">
 
-					<form id="myForm">
+					<form id="myForm" method="POST" action="assignATask">
 						<div class="form-group">
 							<label for="EmployeeName">Enter Employee Name</label> <select
-								class="form-control" id="EmployeeName" aria-describedby="PNHelp">
-								<option>A</option>
-								<option>B</option>
-								<option>C</option>
+								class="form-control" id="EmployeeName" name="EName" aria-describedby="PNHelp">
+								<%
+								try{
+									Class.forName("com.mysql.jdbc.Driver");
+									Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+									Statement st=con.createStatement();
+									ResultSet rs=st.executeQuery("Select * from employee");
+									while(rs.next()){
+									%>
+								<option value="<%=rs.getString("Name")%>">
+									<%=rs.getString("Name")%>
+								</option>
+								<% 
+								}
+									}
+								catch(Exception e)
+								{e.printStackTrace();}
+								%>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="EmployeeRole">Select Role</label> <select
-								class="form-control" id="EmployeeRole" aria-describedby="PNHelp"
+								class="form-control" id="EmployeeRole" name="Role" aria-describedby="PNHelp"
 								onchange="roleCheck(this)">
 								<option value="Developer">Developer</option>
 								<option value="QA">QA</option>
@@ -94,39 +107,51 @@
 						</div>
 						<div class="form-group">
 							<label for="ProjectSelect">Select Project</label> <SELECT
-								class="form-control" id="ProjectSelect"
+								class="form-control" id="ProjectSelect" name="PName"
 								aria-describedby="PSHelp">
-								<option>Project1</option>
-								<option>Project2</option>
-								<option>Project3</option>
+								<%
+								try{
+									Class.forName("com.mysql.jdbc.Driver");
+									Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+									Statement st=con.createStatement();
+									ResultSet rs=st.executeQuery("Select * from projects");
+									while(rs.next()){
+									%>
+								<option value="<%=rs.getString("ProjectName")%>">
+									<%=rs.getString("ProjectName")%>
+								</option>
+								<% 
+								}
+									}
+								catch(Exception e)
+								{e.printStackTrace();}
+								%>
 							</SELECT>
 
 						</div>
 						<div class="form-group" id="EnterTask">
 							<label for="Task">Enter Tasks</label>
-							<textarea class="form-control" id="TaskName"
+							<textarea class="form-control" id="EnterTaskbox" name="TaskName"
 								aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea>
 						</div>
 						<div class="form-group">
 							<label for="Deadline">Set Deadline(Hours)</label> <input
-								type="Number" class="form-control" id="Deadline"
+								type="Number" class="form-control" id="Deadline" name="Deadline"
 								aria-describedby="PNHelp" min=0></input>
 						</div>
 
-
-					</form>
-
-
-				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<input data-dismiss="modal" type="button" name="input" id="BTN"
-						value="Assign" class="btn btn-success" onclick="AddRow()"></input>
+					<button type="submit" name="input" id="BTN" value="Add Project"
+								class="btn btn-success">Assign</button>
+				</div>
+				</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 
 	<div class="container">
 		<div class="col-md-4 col-sm-1 col-xl-10">
@@ -173,46 +198,12 @@
 	<script type="text/javascript">
 		function roleCheck(that) {
 			if (that.value == "Developer") {
+				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display", "block");
 			} else {
+				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display", "none");
 			}
-		}
-
-		var list1 = [];
-		var list2 = [];
-		var list3 = [];
-		var list4 = [];
-		var list5 = [];
-
-		var n = 1;
-		var x = 0;
-
-		function AddRow() {
-			var AddRowp = document.getElementById('show');
-			var NewRow = AddRowp.insertRow(n);
-
-			list1[x] = document.getElementById("ProjectSelect").value;
-			list2[x] = document.getElementById("EmployeeName").value;
-			list3[x] = document.getElementById("EmployeeRole").value;
-			list4[x] = document.getElementById("TaskName").value;
-			list5[x] = document.getElementById("Deadline").value;
-
-			var cel1 = NewRow.insertCell(0);
-			var cel2 = NewRow.insertCell(1);
-			var cel3 = NewRow.insertCell(2);
-			var cel4 = NewRow.insertCell(3);
-			var cel5 = NewRow.insertCell(4);
-
-			cel1.innerHTML = list1[x];
-			cel2.innerHTML = list2[x];
-			cel3.innerHTML = list3[x];
-			cel4.innerHTML = list4[x];
-			cel5.innerHTML = list5[x];
-
-			n++;
-			x++;
-			document.getElementById("myForm").reset();
 		}
 	</script>
 </body>

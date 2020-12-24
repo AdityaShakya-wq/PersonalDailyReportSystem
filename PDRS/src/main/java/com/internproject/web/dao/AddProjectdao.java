@@ -9,7 +9,7 @@ public class AddProjectdao {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/projectdetails","root","lifeis12hell");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
 			PreparedStatement ps=con.prepareStatement("Insert into projects(ProjectName)values(?);");
 			ps.setString(1, Pname);
 			int x=ps.executeUpdate();

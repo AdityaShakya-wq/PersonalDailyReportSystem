@@ -76,7 +76,7 @@
 						</div>
 						<div class="form-group" id="EnterTask">
 							<label for="Task">Enter Tasks</label>
-							<textarea type="text" class="form-control" id="TaskName" aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea> 
+							<textarea type="text" id="EnterTaskbox" class="form-control" value="" aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea> 
 						</div>
 						<div class="form-group">
 							<label for="Deadline">Set Deadline(Hours)</label>
@@ -132,6 +132,7 @@
 	<script type="text/javascript">
 		var i=2;
 		var j=["T","U"];
+		j.push("H");
 		window.onload=function(){
 			for(i=0;i<2;i++){
 				document.getElementById("EmployeeName").innerHTML+="<option>"+j[i]+"</option>";
@@ -140,9 +141,12 @@
 
 		function roleCheck(that){
 			if(that.value=="Developer"){
+				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display","block");
+
 			}
 			else{
+				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display","none");
 			}
 		}

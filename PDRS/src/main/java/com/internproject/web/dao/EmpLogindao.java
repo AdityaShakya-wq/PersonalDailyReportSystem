@@ -9,7 +9,7 @@ public class EmpLogindao {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/employeedetails","root","lifeis12hell");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
 			Statement st=con.createStatement();
 			ResultSet rs=st.executeQuery("Select * from employee where Name=\""+EName+"\" AND Password=\""+EPass+"\""); 
 			if(rs.next()) {

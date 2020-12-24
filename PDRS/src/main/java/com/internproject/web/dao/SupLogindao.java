@@ -8,7 +8,7 @@ public class SupLogindao {
 		SupLogin s=new SupLogin();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/supervisordetails","root","lifeis12hell");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
 			Statement st=con.createStatement();
 			ResultSet rs=st.executeQuery("select * from supervisor where Name=\""+SName+"\" AND Password=\""+SPass+"\"");
 			if(rs.next()) {
