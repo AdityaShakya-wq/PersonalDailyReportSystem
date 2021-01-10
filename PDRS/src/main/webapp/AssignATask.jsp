@@ -73,33 +73,34 @@
 				</div>
 				<div class="modal-body">
 
-					<form id="myForm" method="POST" action="assignATask">
+					<form id="myForm" method="POST" action="assignATask" class="needs-validation" novalidate>
 						<div class="form-group">
 							<label for="EmployeeName">Enter Employee Name</label> <select
-								class="form-control" id="EmployeeName" name="EName" aria-describedby="PNHelp">
+								class="form-control" id="EmployeeName" name="EName"
+								aria-describedby="PNHelp">
 								<%
-								try{
+									try {
 									Class.forName("com.mysql.jdbc.Driver");
-									Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
-									Statement st=con.createStatement();
-									ResultSet rs=st.executeQuery("Select * from employee");
-									while(rs.next()){
-									%>
+									Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs", "root", "lifeis12hell");
+									Statement st = con.createStatement();
+									ResultSet rs = st.executeQuery("Select * from employee");
+									while (rs.next()) {
+								%>
 								<option value="<%=rs.getString("Name")%>">
 									<%=rs.getString("Name")%>
 								</option>
-								<% 
-								}
+								<%
 									}
-								catch(Exception e)
-								{e.printStackTrace();}
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
 								%>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="EmployeeRole">Select Role</label> <select
-								class="form-control" id="EmployeeRole" name="Role" aria-describedby="PNHelp"
-								onchange="roleCheck(this)">
+								class="form-control" id="EmployeeRole" name="Role"
+								aria-describedby="PNHelp" onchange="roleCheck(this)">
 								<option value="Developer">Developer</option>
 								<option value="QA">QA</option>
 							</select>
@@ -110,21 +111,21 @@
 								class="form-control" id="ProjectSelect" name="PName"
 								aria-describedby="PSHelp">
 								<%
-								try{
+									try {
 									Class.forName("com.mysql.jdbc.Driver");
-									Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
-									Statement st=con.createStatement();
-									ResultSet rs=st.executeQuery("Select * from projects");
-									while(rs.next()){
-									%>
+									Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs", "root", "lifeis12hell");
+									Statement st = con.createStatement();
+									ResultSet rs = st.executeQuery("Select * from projects");
+									while (rs.next()) {
+								%>
 								<option value="<%=rs.getString("ProjectName")%>">
 									<%=rs.getString("ProjectName")%>
 								</option>
-								<% 
-								}
+								<%
 									}
-								catch(Exception e)
-								{e.printStackTrace();}
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
 								%>
 							</SELECT>
 
@@ -132,26 +133,28 @@
 						<div class="form-group" id="EnterTask">
 							<label for="Task">Enter Tasks</label>
 							<textarea class="form-control" id="EnterTaskbox" name="TaskName"
-								aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea>
+								aria-describedby="PNHelp" placeholder="Enter Tasks." required></textarea>
+								<div class="invalid-feedback">Please enter the task.</div>
 						</div>
 						<div class="form-group">
 							<label for="Deadline">Set Deadline(Hours)</label> <input
 								type="Number" class="form-control" id="Deadline" name="Deadline"
-								aria-describedby="PNHelp" min=0></input>
+								aria-describedby="PNHelp" min=0 required="required" ></input>
+								<div class="invalid-feedback">Please enter a deadline</div>
 						</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="submit" name="input" id="BTN" value="Add Project"
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" name="input" id="BTN" value="Add Project"
 								class="btn btn-success">Assign</button>
-				</div>
-				</form>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div class="container">
 		<div class="col-md-4 col-sm-1 col-xl-10">
@@ -196,13 +199,44 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+	(function(){
+		// Self-executing function
+		 'use strict'; 
+		//The purpose of "use strict" is to indicate that the code should be executed in "strict mode". With strict mode, you can not, for example, use undeclared variables.
+		window.addEventListener('load',function(){
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms=document.getElementsByClassName('needs-validation');
+
+			// Loop over them and prevent submission	
+			 var validation=Array.prototype.filter.call(forms,function(form){	
+			 	// The JavaScript array prototype constructor is used to allow to add new methods and properties to the Array() object
+			 	// The filter() method creates an array filled with all array elements that pass a test (provided as a function).
+				// Note: filter() does not execute the function for array elements without values.
+				// Note: filter() does not change the original array.
+				//filter() calls a provided callback function once for each element in an array, and constructs a new array of all the values for which callback returns a value that coerces to true 
+
+				form.addEventListener('submit',function(event){
+					if(form.checkValidity()===false){
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					// preventDefault() method stops the default action of an element from happening. For example: Prevent a submit button from submitting a form. Prevent a link from following the URL.
+					// The event. stopPropagation() method stops the bubbling of an event to parent elements, preventing any parent event handlers from being executed
+					form.classList.add('was-validated'); //adds the specified class 
+				},false);
+			});
+
+		},false);
+	})();
 		function roleCheck(that) {
 			if (that.value == "Developer") {
 				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display", "block");
+				$("#EnterTaskbox").attr("required",true);
 			} else {
 				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display", "none");
+				$("#EnterTaskbox").attr("required",false);
 			}
 		}
 	</script>

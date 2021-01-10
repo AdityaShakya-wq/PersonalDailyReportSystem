@@ -50,7 +50,7 @@
 				</div>
 				<div class="modal-body">
 					
-					<form id="myForm">
+					<form id="myForm" class="needs-validation" novalidate>
 						<div class="form-group">
 							<label for="EmployeeName">Enter Employee Name</label>
 							<select class="form-control" id="EmployeeName" aria-describedby="PNHelp" placeholder="Enter name of the project.">
@@ -74,14 +74,23 @@
 							</SELECT>
 							
 						</div>
-						<div class="form-group" id="EnterTask">
+						<div class="form-group" id="EnterTaska">
 							<label for="Task">Enter Tasks</label>
-							<textarea type="text" id="EnterTaskbox" class="form-control" value="" aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea> 
+							<textarea type="text" id="EnterTaskbox" class="form-control" value="" aria-describedby="PNHelp" placeholder="Enter Tasks."></textarea>
+							<div class="invalid-feedback">Please enter task</div> 
 						</div>
 						<div class="form-group">
 							<label for="Deadline">Set Deadline(Hours)</label>
-							<input type="Number" class="form-control" id="Deadline" aria-describedby="PNHelp" min=0></input> 
+							<input type="Number" class="form-control" id="Deadline" aria-describedby="PNHelp" min=0 required="required"></input> 
+							<div class="invalid-feedback">Please enter task</div>
 						</div>
+						<div class="form-group" style="display: none">
+							<label for="Date">Set Deadline(Hours)</label>
+							<input type="date" class="form-control" id="TD" aria-describedby="PNHelp" min=0 name="td"></input> 
+						</div>
+						<button type="submit" name="input" id="BTN" value="Add Project"
+								class="btn btn-success">Assign</button>
+						
 						
 
 					</form>
@@ -130,6 +139,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+		let today = new Date().toISOString().substr(0, 10);
+		document.querySelector("#TD").value = today;
+
+
 		var i=2;
 		var j=["T","U"];
 		j.push("H");
@@ -143,11 +156,13 @@
 			if(that.value=="Developer"){
 				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display","block");
+				$("#EnterTaskbox").attr("required",true);
 
 			}
 			else{
 				$("#EnterTaskbox").val("");
 				$("#EnterTask").css("display","none");
+				$("#EnterTaskbox").attr("required",false);
 			}
 		}
 
@@ -186,6 +201,35 @@
 			x++;
 			document.getElementById("myForm").reset();
 		}
+		(function(){
+				// Self-executing function
+				 'use strict'; 
+				//The purpose of "use strict" is to indicate that the code should be executed in "strict mode". With strict mode, you can not, for example, use undeclared variables.
+				window.addEventListener('load',function(){
+					// Fetch all the forms we want to apply custom Bootstrap validation styles to
+					var forms=document.getElementsByClassName('needs-validation');
+
+					// Loop over them and prevent submission	
+					 var validation=Array.prototype.filter.call(forms,function(form){	
+					 	// The JavaScript array prototype constructor is used to allow to add new methods and properties to the Array() object
+					 	// The filter() method creates an array filled with all array elements that pass a test (provided as a function).
+						// Note: filter() does not execute the function for array elements without values.
+						// Note: filter() does not change the original array.
+						//filter() calls a provided callback function once for each element in an array, and constructs a new array of all the values for which callback returns a value that coerces to true 
+
+						form.addEventListener('submit',function(event){
+							if(form.checkValidity()===false){
+								event.preventDefault();
+								event.stopPropagation();
+							}
+							// preventDefault() method stops the default action of an element from happening. For example: Prevent a submit button from submitting a form. Prevent a link from following the URL.
+							// The event. stopPropagation() method stops the bubbling of an event to parent elements, preventing any parent event handlers from being executed
+							form.classList.add('was-validated'); //adds the specified class 
+						},false);
+					});
+
+				},false);
+			})();
 		
 
 

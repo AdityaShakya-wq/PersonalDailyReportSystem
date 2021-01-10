@@ -63,7 +63,7 @@
 						<img class="card-img-top" src="images/Assign.png"
 							style="width: 80%; margin-left: 6vh; margin-top: 2.5vh">
 						<div class="card-body">
-							<a href="AssignATask.html" class="btn btn-success"
+							<a href="EmployeeSubmit.jsp" class="btn btn-success"
 								style="width: 45%; margin-top: 0.5vh">Enter</a>
 						</div>
 					</div>

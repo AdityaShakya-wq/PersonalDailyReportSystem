@@ -24,7 +24,7 @@ public class AddProjectdao {
 			
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return a;
 

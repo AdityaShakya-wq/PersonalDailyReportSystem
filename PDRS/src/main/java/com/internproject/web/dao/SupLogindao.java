@@ -19,7 +19,7 @@ public class SupLogindao {
 			
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return s;
 		
