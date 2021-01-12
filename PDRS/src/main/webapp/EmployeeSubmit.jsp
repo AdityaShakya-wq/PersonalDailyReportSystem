@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.util.Date"%>
 
 
 <!DOCTYPE html>
@@ -51,7 +53,18 @@
 			<!-- <div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12"> -->
 
-			<form class="form-inline" method="POST" action="postEmployee">
+			<form class="form-inline">
+			<%
+						Date date=new Date();
+						java.sql.Date sqldate=new java.sql.Date(date.getTime());
+						try{
+							Class.forName("com.mysql.jdbc.Driver");
+							Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+							Statement st=con.createStatement();
+							ResultSet rs=st.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\"");
+							while(rs.next()){
+							%>
+			
 				
 				<div class="px-4 mx-4">
 					<h2>Report Today's Work</h2>
@@ -62,21 +75,18 @@
 				</div>
 				<div class="form-group">
 					<label for="Role">Role</label>
-					<select id="Role" class="form-control" min="0" style="margin-left:21vh;" onchange="roleCheck(this)" name="Role">
-								<option value="Developer">Developer</option>
-								<option value="QA">QA</option>
-					</select>
+					<input type="text" value="<%=rs.getString("Role")%>" name="emprole" id="givenrole" class="form-control" style="margin-left:21vh;" disabled>
 					
 				</div>
 				<div class="form-group">
 					<label for="WorkingToday">Working Today</label>
-					<select id="WorkingToday" class="form-control" style="margin-left:10.5vh;" onchange="yesnoCheck(this)" name="WorkToday">
+					<select id="WorkingToday" class="form-control" style="margin-left:10.5vh;" onchange="yesnoCheck(this)">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 					</select>
 					<div id="LeaveReason" style="display: none;margin-left: 5vh;margin-bottom: 1vh">
 						<label for="No">Reason:</label>
-						<input type="text" id="NotWorkingReason" name="Reason" size="30" class="form-control"></input>
+						<input type="text" id="No" name="Reason" size="30" class="form-control"></input>
 					</div>
 				</div>
 					<div class="form-group float-right" id="AddARow">
@@ -98,26 +108,31 @@
 						</thead>
 						<tbody id="developertbody">
 						<tr>
-							<td>Auto</td>
-							<td>Auto</td>
+							<td><input type="text" value="<%=rs.getString("ProjectName")%>" name="submittedprojectname" disabled></td>
+							<td><input type="text" value="<%=rs.getString("Task")%>" name="submittedtaskname" disabled></td>
 							<td>
-								<select id="WorkCompleted" class="table-control"     onclick="yesnoCheck1(this)">
+								<select id="WorkCompleted" class="table-control" onchange="yesnoCheck1(this)">
 									<option value="-">-</option>
 									<option value="Yes2">Yes</option>
 									<option value="No2">No</option>
 								</select>
 							</td>
-							<td id="WIP" class="test"></td>
-							<td><input id="HS" type="Number" min=0 class="table-control" name=""></td>
-							<td><input type="text" class="table-control" name=""></td>
+							<td><input type="text" id="WIP" name="workinprogress" disabled></td>
+							<td><input id="HS" type="Number" min=0 class="table-control" name="hourspent"></td>
+							<td><input type="text" class="table-control" name="description"></td>
 								
 						</tr>
 						</tbody>
+						<%}
+						}
+						catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 
 							
 						
 					</table>
-					
 				</div>
 				<div class="form-group" id="QATable" style="display:none;">
 					<table border="2" class="table-form">
@@ -164,6 +179,7 @@
 				
 				
 				</div>
+				
 
 			</form>
 
@@ -189,6 +205,18 @@
 		let today = new Date().toISOString().substr(0, 10);
 		document.querySelector("#today").value = today;
 
+		window.onload=function(){
+		if($("#givenrole").val()=="Developer"){
+			document.getElementById("DeveloperTable").style.display="block";
+			document.getElementById("QATable").style.display="none";
+
+		}
+		else if($("#givenrole").val()=="QA"){
+			document.getElementById("DeveloperTable").style.display="none";
+			document.getElementById("QATable").style.display="block";	
+		}	
+	};
+
 		
 
 		function statusSelect(that){
@@ -202,7 +230,6 @@
 		
 		function yesnoCheck(that){
 				if(that.value=="No"){
-					$("#NotWorkingReason").val("");	
 				document.getElementById("LeaveReason").style.display="flex";
 				document.getElementById("DeveloperTable").style.display="none";
 				document.getElementById("QATable").style.display="none";
@@ -210,13 +237,12 @@
 				$("#sub").prop('disabled',false);
 				}
 			else{
-				$("#NotWorkingReason").val("");
 				document.getElementById("LeaveReason").style.display="none";
-				if(document.getElementById("Role").value=="Developer"){
+				if(document.getElementById("givenrole").value=="Developer"){
 					document.getElementById("DeveloperTable").style.display="block";
 					document.getElementById("QATable").style.display="none";
 				}
-				else{
+				else if(document.getElementById("givenrole").value=="QA"){
 					document.getElementById("DeveloperTable").style.display="none";
 					document.getElementById("QATable").style.display="block";
 				}
@@ -227,22 +253,13 @@
 			}
 		}
 
-		function roleCheck(that){
-			if(that.value=="Developer"){
-				document.getElementById("DeveloperTable").style.display="block";
-				document.getElementById("QATable").style.display="none";
-			}
-			if(that.value=="QA"){
-				document.getElementById("DeveloperTable").style.display="none";
-				document.getElementById("QATable").style.display="block";	
-			}
-		}
 
 		function yesnoCheck1(that){
 			
 			if(that.value=="Yes2"){
 				document.getElementById("WIP").innerHTML="";
-				$("#WIP").append('Completed');
+				document.getElementById("WIP").value="Completed";
+				$("#WIP").prop('disabled',true);
 				$("#sub").prop('disabled',false);
 				
 
@@ -250,12 +267,17 @@
 			}
 			else if(that.value=="No2"){
 				document.getElementById("WIP").innerHTML="";
+				document.getElementById("WIP").value="";
 
-				$("#WIP").append('<input type="text" class="table-control"></input>');
+
+				$("#WIP").prop('disabled',false);
 				$("#sub").prop('disabled',false);
 			}
 			else{
 				document.getElementById("WIP").innerHTML="";
+				document.getElementById("WIP").value="";
+
+				$("#WIP").prop('disabled',true);
 				$("#sub").prop('disabled',true);
 			}
 		}

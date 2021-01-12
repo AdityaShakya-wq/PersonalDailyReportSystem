@@ -25,10 +25,7 @@
 				</div>
 				<div class="form-group">
 					<label for="Role">Role</label>
-					<select id="Role" class="form-control" min="0" style="margin-left:21vh;" onchange="roleCheck(this)">
-								<option value="Developer">Developer</option>
-								<option value="QA">QA</option>
-					</select>
+					<input type="text" value="Developer" name="emprole" id="givenrole" class="form-control" style="margin-left:21vh;" disabled>
 					
 				</div>
 				<div class="form-group">
@@ -80,10 +77,6 @@
 							
 						
 					</table>
-					<div class="form-group float-right">
-					<button type="submit" class="btn btn-success" id="sub" disabled>Submit</button>
-					
-				</div>
 				</div>
 				<div class="form-group" id="QATable" style="display:none;">
 					<table border="2" class="table-form">
@@ -122,14 +115,15 @@
 							
 						
 					</table>
-					<div class="form-group float-right">
+				</div>
+				<div class="form-group float-right">
 					<button type="submit" class="btn btn-success" id="sub" disabled>Submit</button>
 					
 				</div>
-				</div>
 				
 				
 				</div>
+				
 
 			</form>
 
@@ -155,6 +149,18 @@
 		let today = new Date().toISOString().substr(0, 10);
 		document.querySelector("#today").value = today;
 
+		window.onload=function(){
+		if($("#givenrole").val()=="Developer"){
+			document.getElementById("DeveloperTable").style.display="block";
+			document.getElementById("QATable").style.display="none";
+
+		}
+		else if($("#givenrole").val()=="QA"){
+			document.getElementById("DeveloperTable").style.display="none";
+			document.getElementById("QATable").style.display="block";	
+		}	
+	};
+
 		
 
 		function statusSelect(that){
@@ -176,11 +182,11 @@
 				}
 			else{
 				document.getElementById("LeaveReason").style.display="none";
-				if(document.getElementById("Role").value=="Developer"){
+				if(document.getElementById("givenrole").value=="Developer"){
 					document.getElementById("DeveloperTable").style.display="block";
 					document.getElementById("QATable").style.display="none";
 				}
-				else{
+				else if(document.getElementById("givenrole").value=="QA"){
 					document.getElementById("DeveloperTable").style.display="none";
 					document.getElementById("QATable").style.display="block";
 				}
@@ -191,16 +197,6 @@
 			}
 		}
 
-		function roleCheck(that){
-			if(that.value=="Developer"){
-				document.getElementById("DeveloperTable").style.display="block";
-				document.getElementById("QATable").style.display="none";
-			}
-			if(that.value=="QA"){
-				document.getElementById("DeveloperTable").style.display="none";
-				document.getElementById("QATable").style.display="block";	
-			}
-		}
 
 		function yesnoCheck1(that){
 			

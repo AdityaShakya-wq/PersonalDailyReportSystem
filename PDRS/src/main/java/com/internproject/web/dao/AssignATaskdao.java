@@ -3,7 +3,6 @@ package com.internproject.web.dao;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
-import javax.servlet.http.HttpSession;
 
 
 import com.internproject.web.AssignATaskmodel;
