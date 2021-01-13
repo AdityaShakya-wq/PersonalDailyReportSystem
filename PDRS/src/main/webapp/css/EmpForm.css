@@ -77,7 +77,7 @@ color: black;
 	margin-top: 10vh;
 }
 th{
-	width: 25vh;
+	width: 20vh;
 	background-color: silver;
 }
 .table-control{
@@ -89,4 +89,5 @@ th{
 table{
 	empty-cells: show;
 }
+
 

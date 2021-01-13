@@ -48,7 +48,7 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<!-- <div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12"> -->
@@ -62,7 +62,7 @@
 							Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
 							Statement st=con.createStatement();
 							ResultSet rs=st.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\"");
-							while(rs.next()){
+							if(rs.next()){
 							%>
 			
 				
@@ -76,7 +76,12 @@
 				<div class="form-group">
 					<label for="Role">Role</label>
 					<input type="text" value="<%=rs.getString("Role")%>" name="emprole" id="givenrole" class="form-control" style="margin-left:21vh;" disabled>
-					
+					<%}
+						}
+						catch(Exception e){
+							System.out.println(e);
+						}
+						%>
 				</div>
 				<div class="form-group">
 					<label for="WorkingToday">Working Today</label>
@@ -106,10 +111,19 @@
 							<th>Remarks/Issues to be addressed</th>
 						</tr>
 						</thead>
+					<%
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con1=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st1=con1.createStatement();
+						ResultSet rs1=st1.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\" and Role=\"Developer\"");
+						if(rs1.next()){
+						%>
+
 						<tbody id="developertbody">
 						<tr>
-							<td><input type="text" value="<%=rs.getString("ProjectName")%>" name="submittedprojectname" disabled></td>
-							<td><input type="text" value="<%=rs.getString("Task")%>" name="submittedtaskname" disabled></td>
+							<td><input type="text" value="<%=rs1.getString("ProjectName")%>" name="submittedprojectnameD" disabled></td>
+							<td><input type="text" value="<%=rs1.getString("Task")%>" name="submittedtaskname" disabled></td>
 							<td>
 								<select id="WorkCompleted" class="table-control" onchange="yesnoCheck1(this)">
 									<option value="-">-</option>
@@ -118,15 +132,15 @@
 								</select>
 							</td>
 							<td><input type="text" id="WIP" name="workinprogress" disabled></td>
-							<td><input id="HS" type="Number" min=0 class="table-control" name="hourspent"></td>
-							<td><input type="text" class="table-control" name="description"></td>
+							<td><input id="HS" type="Number" min=0 class="table-control" name="hourspentD"></td>
+							<td><input type="text" class="table-control" name="remarks"></td>
 								
 						</tr>
 						</tbody>
 						<%}
 						}
-						catch(Exception e){
-							System.out.println(e);
+						catch(Exception e1){
+							System.out.println(e1);
 						}
 						%>
 
@@ -149,28 +163,42 @@
 						</thead>
 						<tbody id="qatbody">
 						<tr>
-							<td><input id="TN" type="Number" min=0 class="table-control"></td>
-							<td>Auto</td>
+							<%
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con2=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st2=con2.createStatement();
+						ResultSet rs2=st2.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\" and Role=\"QA\"");
+						if(rs2.next()){
+						%>
+							<td><input id="TN" type="Number" class="table-control" disabled></td>
+							<td><input type="text" name="submittedprojectnameQ" value="<%=rs2.getString("ProjectName") %>" class="table-control" disabled></td>
 
-							<td><input id="II" type="text" class="table-control" name=""></td>
-							<td><input id="PS" type="text" class="table-control" name="">
+							<td><input id="II" type="text" class="table-control" name="issue"></td>
+							<td><input id="PS" type="text" class="table-control" name="suggestion">
 							</td>
 							<td>
-								<select id="Status" class="table-control" onchange="statusSelect(this)">
+								<select id="Status" class="table-control" onchange="statusSelect(this)" name="status">
 									<option value="-">-</option>
 									<option value="Open">Open</option>
 									<option value="Close">Close</option>
 								</select>
 							</td>
-							<td><input id="HS" type="Number" min=0 class="table-control"></td>
-							<td><input type="text" class="table-control" size=30 name=""></td>
+							<td><input id="HS" type="Number" min=0 class="table-control" name="hoursspentQ"></td>
+							<td><input type="text" class="table-control" size=30 name="bugdescription"></td>
 								
 						</tr>
 						</tbody>
 
+						<%}
+						}
+						catch(Exception e1){
+							System.out.println(e1);
+						}%>
 							
 						
 					</table>
+					
 				</div>
 				<div class="form-group float-right">
 					<button type="submit" class="btn btn-success" id="sub" disabled>Submit</button>
@@ -206,6 +234,9 @@
 		document.querySelector("#today").value = today;
 
 		window.onload=function(){
+			var x=Math.floor((Math.random() * 99999) + 10000);
+			document.getElementById("TN").value=x;
+			
 		if($("#givenrole").val()=="Developer"){
 			document.getElementById("DeveloperTable").style.display="block";
 			document.getElementById("QATable").style.display="none";
