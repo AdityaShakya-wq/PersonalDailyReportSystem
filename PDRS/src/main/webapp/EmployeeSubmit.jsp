@@ -15,6 +15,12 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<%
+		if (session.getAttribute("username") == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("EmployeeLogin.jsp");
+		rd.forward(request, response);
+	}
+	%>
 <header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
@@ -53,7 +59,7 @@
 			<!-- <div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12"> -->
 
-			<form class="form-inline">
+			<form class="form-inline" method="POST" action="postEmployee">
 			<%
 						Date date=new Date();
 						java.sql.Date sqldate=new java.sql.Date(date.getTime());
@@ -75,7 +81,7 @@
 				</div>
 				<div class="form-group">
 					<label for="Role">Role</label>
-					<input type="text" value="<%=rs.getString("Role")%>" name="emprole" id="givenrole" class="form-control" style="margin-left:21vh;" disabled>
+					<input type="text" value="<%=rs.getString("Role")%>" name="emprole" id="givenrole" class="form-control" style="margin-left:21vh;" readonly="true">
 					<%}
 						}
 						catch(Exception e){
@@ -85,7 +91,7 @@
 				</div>
 				<div class="form-group">
 					<label for="WorkingToday">Working Today</label>
-					<select id="WorkingToday" class="form-control" style="margin-left:10.5vh;" onchange="yesnoCheck(this)">
+					<select id="WorkingToday" class="form-control" style="margin-left:10.5vh;" onchange="yesnoCheck(this)" name="WorkToday">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 					</select>
@@ -122,16 +128,16 @@
 
 						<tbody id="developertbody">
 						<tr>
-							<td><input type="text" value="<%=rs1.getString("ProjectName")%>" name="submittedprojectnameD" disabled></td>
-							<td><input type="text" value="<%=rs1.getString("Task")%>" name="submittedtaskname" disabled></td>
+							<td><input type="text" value="<%=rs1.getString("ProjectName")%>" name="submittedprojectnameD" readonly="true"></td>
+							<td><input type="text" value="<%=rs1.getString("Task")%>" name="submittedtaskname" readonly="true"></td>
 							<td>
-								<select id="WorkCompleted" class="table-control" onchange="yesnoCheck1(this)">
+								<select id="WorkCompleted" class="table-control" onchange="yesnoCheck1(this)" name="workcompleted">
 									<option value="-">-</option>
-									<option value="Yes2">Yes</option>
-									<option value="No2">No</option>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
 								</select>
 							</td>
-							<td><input type="text" id="WIP" name="workinprogress" disabled></td>
+							<td><input type="text" id="WIP" name="workinprogress" readonly="true"></td>
 							<td><input id="HS" type="Number" min=0 class="table-control" name="hourspentD"></td>
 							<td><input type="text" class="table-control" name="remarks"></td>
 								
@@ -171,8 +177,8 @@
 						ResultSet rs2=st2.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\" and Role=\"QA\"");
 						if(rs2.next()){
 						%>
-							<td><input id="TN" type="Number" class="table-control" disabled></td>
-							<td><input type="text" name="submittedprojectnameQ" value="<%=rs2.getString("ProjectName") %>" class="table-control" disabled></td>
+							<td><input id="TN" type="Number" class="table-control" name="ticketnumber" readonly="true"></td>
+							<td><input type="text" name="submittedprojectnameQ" value="<%=rs2.getString("ProjectName") %>" class="table-control" readonly="true"></td>
 
 							<td><input id="II" type="text" class="table-control" name="issue"></td>
 							<td><input id="PS" type="text" class="table-control" name="suggestion">
@@ -287,28 +293,28 @@
 
 		function yesnoCheck1(that){
 			
-			if(that.value=="Yes2"){
+			if(that.value=="Yes"){
 				document.getElementById("WIP").innerHTML="";
 				document.getElementById("WIP").value="Completed";
-				$("#WIP").prop('disabled',true);
+				$("#WIP").prop('readonly',true);
 				$("#sub").prop('disabled',false);
 				
 
 				
 			}
-			else if(that.value=="No2"){
+			else if(that.value=="No"){
 				document.getElementById("WIP").innerHTML="";
 				document.getElementById("WIP").value="";
 
 
-				$("#WIP").prop('disabled',false);
+				$("#WIP").prop('readonly',false);
 				$("#sub").prop('disabled',false);
 			}
 			else{
 				document.getElementById("WIP").innerHTML="";
 				document.getElementById("WIP").value="";
 
-				$("#WIP").prop('disabled',true);
+				$("#WIP").prop('readonly',true);
 				$("#sub").prop('disabled',true);
 			}
 		}

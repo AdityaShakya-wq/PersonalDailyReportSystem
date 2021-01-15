@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.servlet.http.HttpSession;
-
 import com.internproject.web.postEmployeemodel;
 
 public class postEmployeedao {
@@ -32,7 +30,7 @@ public class postEmployeedao {
 			PreparedStatement ps=con.prepareStatement("Insert into notworking(Reason,EmployeeName)values(?,?)");
 			ps.setString(1,Reason);
 			ps.setString(2,reasonby);
-			int x=ps.executeUpdate();
+			ps.executeUpdate();
 			
 			
 		}
