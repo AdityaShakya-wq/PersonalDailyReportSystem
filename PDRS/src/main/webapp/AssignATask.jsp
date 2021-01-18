@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*"%>
+<%@page import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Supervisor HomePage</title>
+<link rel="stylesheet" type="text/css" href="css/DLR.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta charset="ISO-8859-1">
@@ -166,19 +168,51 @@
 			</form>
 		</div>
 
-		<div class="col-md-4 col-sm-1 col-xl-10"
-			style="display: none; margin-top: 20vh;">
-			<table id='show'>
-				<thead>
-					<tr>
-						<td>Project Name</td>
-						<td>Assigned To</td>
-						<td>Role</td>
-						<td>Tasks</td>
-						<td>Deadline</td>
-					</tr>
-				</thead>
-			</table>
+		<div class="col-md-4 col-sm-1 col-xl-10" style="margin-top: 20vh;">
+			<div class="form-inline mb-3">
+					<label for="Date">Date:</label>
+					<input type="date" id="today" class="form-control" style="margin-left: 2vh"disabled></input>
+				</div>
+			<div>
+			<table border="2" id="myTableD">
+					<thead>
+						<tr class="header">
+							<th>Project</th>
+							<th>Assigned To</th>
+							<th>Role</th>
+							<th>Task Assigned</th>
+							<th>Deadline</th>
+						</tr>
+					</thead>
+					<tbody>
+					<%
+						Date date=new Date();
+						java.sql.Date sqldate=new java.sql.Date(date.getTime());
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con2=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st2=con2.createStatement();
+						ResultSet rs2=st2.executeQuery("Select * from taskdetails where AssignedBy=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\"");
+						while(rs2.next()){
+						%>
+						<tr>
+							<td><%=rs2.getString("ProjectName") %></td>
+							<td><%=rs2.getString("EmpName") %></td>
+							<td><%=rs2.getString("Role") %></td>
+							<td><%=rs2.getString("Task") %></td>
+							<td><%=rs2.getString("Deadline") %></td>
+						</tr>
+					</tbody>
+					<%}
+						}catch(Exception e2){
+							System.out.println(e2);
+						}
+					%>
+
+
+
+				</table>
+				</div>
 		</div>
 
 	</div>
@@ -199,6 +233,8 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+	let today = new Date().toISOString().substr(0, 10);
+	document.querySelector("#today").value = today;
 	(function(){
 		// Self-executing function
 		 'use strict'; 

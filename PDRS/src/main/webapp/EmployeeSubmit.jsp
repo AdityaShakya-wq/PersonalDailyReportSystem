@@ -178,7 +178,7 @@
 						if(rs2.next()){
 						%>
 							<td><input id="TN" type="Number" class="table-control" name="ticketnumber" readonly="true"></td>
-							<td><input type="text" name="submittedprojectnameQ" value="<%=rs2.getString("ProjectName") %>" class="table-control" readonly="true"></td>
+							<td><input type="text" id="PN" name="submittedprojectnameQ" value="<%=rs2.getString("ProjectName")%>" class="table-control" readonly="true"></td>
 
 							<td><input id="II" type="text" class="table-control" name="issue"></td>
 							<td><input id="PS" type="text" class="table-control" name="suggestion">
@@ -242,6 +242,7 @@
 		window.onload=function(){
 			var x=Math.floor((Math.random() * 99999) + 10000);
 			document.getElementById("TN").value=x;
+			
 			
 		if($("#givenrole").val()=="Developer"){
 			document.getElementById("DeveloperTable").style.display="block";
@@ -376,7 +377,7 @@
 
 		
 		</script>
-		}
+	
 
 
 

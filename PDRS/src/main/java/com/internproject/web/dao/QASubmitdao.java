@@ -40,13 +40,13 @@ public class QASubmitdao {
 			
 			ps.executeUpdate();
 			
-			if(status.equals("Open")) {
+			if(status.equals("Close")) {
 
 				Statement st=con.createStatement();
 				String sqld="Delete from taskdetails where EmpName=\""+subby+"\" and AssignedDate=\""+sqldate+"\" and Role=\"QA\"";
 				st.executeUpdate(sqld);	
 			}
-			if(status.equals("Close")) {
+			if(status.equals("Open")) {
 				Statement st1=con.createStatement();
 				String sqlu="update taskdetails set AssignedDate=\""+sqlTommorow+"\" where AssignedDate=\""+sqldate+"\" and EmpName=\""+subby+"\" and Role=\"QA\"";
 				st1.executeUpdate(sqlu);

@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Supervisor HomePage</title>
+		<link rel="stylesheet" type="text/css" href="css/DLR.css">
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,18 +113,34 @@
 
 		</div>
 
-		<div class="col-md-4 col-sm-1 col-xl-10" style="display:none;margin-top: 20vh;">
-			<table border=2 id='show'>
-				<thead>
-					<tr>
-						<td>Project Name</td>
-						<td>Assigned To</td>
-						<td>Role</td>
-						<td>Tasks</td>
-						<td>Deadline</td>
-					</tr>
-				</thead>
-			</table>
+		<div class="col-md-4 col-sm-1 col-xl-10" style="margin-top: 20vh;">
+			<div class="form-inline mb-3">
+					<label for="Date">Date:</label>
+					<input type="date" id="today" class="form-control" style="margin-left: 2vh"disabled></input>
+				</div>
+			<div>
+			<table border="2" id="myTableD">
+					<thead>
+						<tr class="header">
+							<th>Project</th>
+							<th>Assigned To</th>
+							<th>Role</th>
+							<th>Task Assigned</th>
+							<th>Deadline</th>
+						</tr>
+					</thead>
+					<tbody>
+							<td>Project</td>
+							<td>Assigned To</td>
+							<td>Role</td>
+							<td>Task Assigned</td>
+							<td>Deadline</td>
+					</tbody>
+
+
+
+				</table>
+				</div>
 		</div>
 		
 	</div>
@@ -140,7 +158,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		let today = new Date().toISOString().substr(0, 10);
-		document.querySelector("#TD").value = today;
+		document.querySelector("#today").value = today;
 
 
 		var i=2;
