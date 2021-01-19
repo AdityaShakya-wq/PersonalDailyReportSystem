@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,29 +9,45 @@
 	<link rel="stylesheet" type="text/css" href="css/DLR.css">
 
 
-	<meta charset="utf-8">
+	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 </head>
 <body>	
+		<%
+		if (session.getAttribute("username") == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("EmployeeLogin.jsp");
+		rd.forward(request, response);
+	}
+	%>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
-				<a class="navbar-brand" href="SupervisorHomePage.html">Home</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-labelled="Toggle Navigation"><span class="navbar-toggler-icon"></span></button>
-				<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+				<a class="navbar-brand" href="EmployeeHomePage.jsp">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-labelled="Toggle Navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-					
+
 					</ul>
 					<ul class="navbar-nav">
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</a>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">${username}</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="#">Account Details</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Logout</a>
-							</div>
-						</li>
+								<form action="Logout">
+									<button type="submit" class="dropdown-item">Logout</button>
+								</form>
+								
+							</div></li>
 					</ul>
 				</div>
 			</div>
@@ -52,41 +71,41 @@
 				<table border="2" id="myTableD">
 					<thead>
 						<tr class="header">
+							<th>Date</th>
 							<th>Project</th>
 							<th>Task Assigned</th>
 							<th>Work Completed</th>
 							<th>Work In Progress</th>
 							<th>Hours Spent</th>
-							<th>Issues</th>
+							<th>Remarks</th>
 						</tr>
 					</thead>
 					<tbody>
+						<%
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con2=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st2=con2.createStatement();
+						ResultSet rs2=st2.executeQuery("Select * from developertaskdetails where SubmittedBy=\""+session.getAttribute("username")+"\"");
+						while(rs2.next()){
+							
+						%>
 						<tr>
-							<td>ABC</td>
-							<td>UI Form 1</td>
-							<td>Yes</td>
-							<td>Completed</td>
-							<td>3</td>
-							<td>-</td>
+							<td><%=rs2.getDate("SubmittedDate") %></td>
+							<td><%=rs2.getString("ProjectName") %></td>
+							<td><%=rs2.getString("Task") %></td>
+							<td><%=rs2.getString("WorkCompleted") %></td>
+							<td><%=rs2.getString("WorkInProgress") %></td>
+							<td><%=rs2.getString("HourSpent") %></td>
+							<td><%=rs2.getString("Remarks") %></td>
 						</tr>
-						<tr>
-							<td>XYZ</td>
-							<td>UI Form 2</td>
-							<td>No</td>
-							<td>Personal Info Section</td>
-							<td>3</td>
-							<td>-</td>
-						</tr>
-						<tr>
-							<td>ABC</td>
-							<td>UI Form 2</td>
-							<td>Yes</td>
-							<td>Completed</td>
-							<td>4</td>
-							<td>-</td>
-						</tr>
-
 					</tbody>
+					<%}
+						}catch(Exception e2){
+							System.out.println(e2);
+						}
+					%>
+					
 
 
 
@@ -99,6 +118,7 @@
 				<table id="myTableQ" border="2">
 					<thead>
 						<tr class="header">
+							<th>Date</th>
 							<th>Ticket No.</th>
 							<th>Project</th>
 							<th>Issues Identified</th>
@@ -109,27 +129,31 @@
 						</tr>
 					</thead>
 					<tbody>
+					<%
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con3=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st3=con3.createStatement();
+						ResultSet rs3=st3.executeQuery("Select * from qasubmit where SubmittedBy=\""+session.getAttribute("username")+"\"");
+						while(rs3.next()){
+						%>
 						<tr>
-							<td>1</td>
-							<td>ABC</td>
-							<td>Project is Type able</td>
-							<td>Make it Dropdown</td>
-							<td>Open</td>
-							<td>3</td>
-							<td>Project is assigned by Supervisor</td>
+							<td><%=rs3.getDate("SubmittedDate") %></td>
+							<td><%=rs3.getInt("TicketNumber") %></td>
+							<td><%=rs3.getString("ProjectName") %></td>
+							<td><%=rs3.getString("Issue") %></td>
+							<td><%=rs3.getString("Suggestion") %></td>
+							<td><%=rs3.getString("Status") %></td>
+							<td><%=rs3.getString("HourSpent") %></td>
+							<td><%=rs3.getString("Description") %></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>ABC</td>
-							<td>No</td>
-							<td>No</td>
-							<td>Closed</td>
-							<td>3</td>
-							<td></td>
-						</tr>
-						
 
 					</tbody>
+					<%}
+						}catch(Exception e3){
+							System.out.println(e3);
+						}
+					%>
 
 
 
@@ -137,6 +161,7 @@
 			</div>
 
 		</div>	
+		</div>
 
 
 

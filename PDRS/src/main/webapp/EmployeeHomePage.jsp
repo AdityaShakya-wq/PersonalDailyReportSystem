@@ -73,7 +73,7 @@
 						<img class="card-img-top" src="images/View.png"
 							style="width: 65%; margin-left: 10vh; margin-top: 4vh">
 						<div class="card-body">
-							<a href="DailyLogReview.html" class="btn btn-success"
+							<a href="DailyLogView.jsp" class="btn btn-success"
 								style="width: 45%; margin-top: 6vh">View</a>
 						</div>
 					</div>

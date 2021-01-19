@@ -1,0 +1,14 @@
+<%
+						try{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con2=DriverManager.getConnection("jdbc:mysql://localhost:3306/pdrs","root","lifeis12hell");
+						Statement st2=con2.createStatement();
+						ResultSet rs2=st2.executeQuery("Select * from taskdetails where EmpName=\""+session.getAttribute("username")+"\" and AssignedDate=\""+sqldate+"\" and Role=\"QA\"");
+						while(rs2.next()){
+						%>
+
+						<%}
+						}
+						catch(Exception e1){
+							System.out.println(e1);
+						}%>
